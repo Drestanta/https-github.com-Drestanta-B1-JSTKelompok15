@@ -1,26 +1,198 @@
-# TB1-JST-KelompokXX: Analisis dan Implementasi Klasifikasi Risiko Penyakit Jantung (Heart Failure) Menggunakan Perceptron dan ADALINE
+## 📌 1. Judul dan Kasus Analisis
+
+**Judul Tugas Besar:** Analisis dan Implementasi Klasifikasi Risiko Penyakit Jantung (*Heart Failure*) Menggunakan Perceptron dan ADALINE Berbasis Python dan NumPy.
+**Deskripsi Kasus:** Penyakit kardiovaskular merupakan penyebab utama kematian di tingkat global. Kasus ini diformulasikan sebagai permasalahan **klasifikasi biner terawasi (*supervised binary classification*)** untuk memprediksi apakah seorang pasien berisiko mengalami penyakit jantung ($y = +1$) atau berada dalam kondisi normal ($y = -1$) berdasarkan 11 indikator klinis medis.
 
 ---
 
-## 📌 1. Judul Kasus & Identitas Kelompok
-* **Judul Tugas Besar:** Klasifikasi Risiko Penyakit Jantung (Heart Failure) Menggunakan Perceptron dan ADALINE Berbasis Python/NumPy.
-* **Mata Kuliah:** Jaringan Syaraf Tiruan (IT6053) — 3 SKS
-* **Institusi:** Fakultas Teknologi Informasi, Universitas Duta Wacana (UKDW)
+## 👥 2. Identitas Anggota Kelompok
 
-### 👥 Identitas Anggota Kelompok
-1. **[Nama Mahasiswa 1]** — NIM: `[NIM 1]` (Kontribusi: Formulasi Masalah, Preprocessing, Implementasi Perceptron & ADALINE)
-2. **[Nama Mahasiswa 2]** — NIM: `[NIM 2]` (Kontribusi: Perhitungan Manual, Eksekusi 8 Runs, Analisis Convergence)
-3. **[Nama Mahasiswa 3]** — NIM: `[NIM 3]` (Kontribusi: Visualisasi Evaluasi, Penyusunan Laporan PDF & Slide Presentasi)
+**Kelompok:** Kelompok XX  
+**Kelas / Program Studi:** IT6053 - A / Informatika  
+
+| No. | Nama Mahasiswa | NIM | Peran Utama |
+| :---: | :--- | :---: | :--- |
+| 1 | Drestanta Dipta JP | 71220895 | Visualisasi Kurva Konvergensi,, Preprocessing Data & Implementation Perceptron/ADALINE |
+| 2 | Josua Adriansyah F.n | 71220878 | Verifikasi Perhitungan Manual, Eksekusi 8 Konfigurasi Eksperimen, Penyusunan Laporan PDF & Slide Presentasi  |
 
 ---
 
-## 📁 2. Struktur Repository & Tautan Berkas
+## 📁 3. Struktur dan Tautan Berkas
+
+Berikut adalah struktur direktori resmi dalam repositori ini:
 
 ```text
 TB1-JST-KelompokXX/
-├── README.md                 # Dokumentasi utama repository
-├── requirements.txt          # Daftar dependensi Python
-├── dataset.csv               # Heart Failure Prediction Dataset (918 sampel)
-├── TB1_KelompokXX.ipynb      # Notebook eksperimen NumPy LENGKAP end-to-end
-├── TB1_KelompokXX.pdf        # Laporan resmi Tugas Besar 1 (PDF)
-└── Presentasi_TB1.pdf        # Slide presentasi (PDF)
+├── README.md                 # Dokumentasi utama dan panduan eksekusi repositori
+├── requirements.txt          # Daftar dependensi modul Python beserta versinya
+├── dataset.csv               # Dataset fisik Heart Failure (918 sampel)
+├── TB1_KelompokXX.ipynb      # Notebook eksperimen Jupyter lengkap (end-to-end)
+├── TB1_KelompokXX.pdf        # Berkas Laporan Utama Tugas Besar 1 (PDF 5-8 halaman)
+└── Presentasi_TB1.pdf        # Slide ringkasan paparan presentasi (PDF)
+
+```
+
+### Tautan Langsung Berkas:
+
+* [Laporan Utama PDF](./TB1_Kelompok15.pdf)
+* [Slide Presentasi PDF](./Presentasi_TB1.pdf)
+* [Jupyter Notebook IPYNB](./TB1_Kelompok15.ipynb)
+* [Dataset Fisik CSV](./heart.csv)
+* [Daftar Dependensi requirements.txt](./requirements.txt)
+
+---
+
+## 📊 4. Sumber dan Deskripsi Data
+
+* **Sumber Dataset:** *Heart Failure Prediction Dataset* dari platform Kaggle ([Tautan Kaggle Original](https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction)).
+* **Ketersediaan Data Fisik:** Berkas `dataset.csv` **tersedia secara lokal** di dalam repositori ini sehingga eksperimen dapat dijalankan ulang secara mandiri tanpa bergantung pada koneksi internet atau tautan eksternal.
+* **Jumlah Observasi:** $918$ sampel pasien ($0$ missing values, $0$ duplikasi).
+* **Distribusi Label Kelas Target (`HeartDisease`):**
+* **Kelas $+1$ (Positif - Heart Disease):** $508$ sampel ($55,34\%$)
+* **Kelas $-1$ (Negatif - Normal):** $410$ sampel ($44,66\%$)
+
+
+
+### Deskripsi Fitur Asli dan Transformasinya:
+
+1. `Age`: Usia pasien (Numerik kontinu).
+2. `RestingBP`: Tekanan darah istirahat dalam mm Hg (Numerik kontinu).
+3. `Cholesterol`: Kolesterol serum dalam mm/dl (Numerik kontinu).
+4. `FastingBS`: Gula darah puasa > 120 mg/dl (Biner 0/1).
+5. `MaxHR`: Detak jantung maksimum yang dicapai (Numerik kontinu).
+6. `Oldpeak`: Depresi ST hasil tes beban olahraga (Numerik kontinu).
+7. `Sex`, `ChestPainType`, `RestingECG`, `ExerciseAngina`, `ST_Slope`: Fitur kategorikal yang diubah melalui *One-Hot Encoding* (`pd.get_dummies(drop_first=True)`), menghasilkan **15 fitur input numerik ($x_1, x_2, \dots, x_{15}$)**.
+8. **Standardisasi Skala:** Pengukuran Z-Score ($x_{\text{std}} = \frac{x - \mu}{\sigma}$) dihitung **hanya dari data latih ($X_{\text{train}}$)** untuk mencegah kebocoran data (*data leakage*), lalu diterapkan pada data uji ($X_{\text{test}}$).
+
+---
+
+## 💻 5. Instalasi dan Cara Menjalankan
+
+### Kebutuhan Lingkungan System:
+
+* **Versi Python:** `Python 3.9+` (diuji pada Python 3.9.13 dan 3.10.12)
+* **Random Seed:** `42` (Digunakan secara konsisten pada pembagian *Stratified Train-Test Split* 80:20 serta inisialisasi parameter)
+
+### Langkah-Langkah Menjalankan Kode:
+
+1. **Clone Repositori GitHub:**
+```bash
+git clone: https://github.com/Drestanta/https-github.com-Drestanta-B1-JSTKelompok15.git
+cd TB1-JST-KelompokXX
+
+```
+
+
+2. **Buat dan Aktifkan Virtual Environment (Disarankan):**
+```bash
+python -m venv venv
+# Di Windows:
+venv\\Scripts\\activate
+# Di macOS/Linux:
+source venv/bin/activate
+
+```
+
+
+3. **Install Dependensi Module:**
+```bash
+pip install -r requirements.txt
+
+```
+
+
+4. **Jalankan Jupyter Notebook:**
+```bash
+jupyter notebook TB1_KelompokXX.ipynb
+
+```
+
+
+Jalankan seluruh sel (*Run All Cells*) dari atas ke bawah untuk mereproduksi seluruh eksperimen dan grafik visualisasi.
+
+---
+
+## 📈 6. Ringkasan Hasil Eksperimen
+
+Delapan konfigurasi pelatihan dijalankan selama 50 epoch pada data latih ($N=734$) dan dievaluasi pada data uji ($N=184$):
+
+| Run | Model | Learning Rate ($\eta$) | Standardisasi | Akurasi Latih | Akurasi Uji | Precision (+1) | Recall (+1) | F1-Score (+1) | Loss / Errors Akhir |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Run 1** | Perceptron | $0,001$ | Ya | $82,97\%$ | $79,89\%$ | $78,26\%$ | $88,24\%$ | $82,95\%$ | $152$ misclass |
+| **Run 2** | Perceptron | $0,010$ | Ya | $82,97\%$ | $79,89\%$ | $78,26\%$ | $88,24\%$ | $82,95\%$ | $152$ misclass |
+| **Run 3** | Perceptron | $0,100$ | Ya | $82,97\%$ | $79,89\%$ | $78,26\%$ | $88,24\%$ | $82,95\%$ | $152$ misclass |
+| **Run 4** | ADALINE | $0,001$ | Ya | $85,42\%$ | $86,96\%$ | $91,49\%$ | $84,31\%$ | $87,76\%$ | $J = 0,4248$ |
+| **Run 5** | ADALINE | $0,010$ | Ya | $85,69\%$ | $88,04\%$ | $91,67\%$ | $86,27\%$ | $88,89\%$ | $J = 0,2335$ |
+| **Run 6** | ADALINE | $0,100$ | Ya | **$86,10\%$** | **$89,13\%$** | **$87,96\%$** | **$93,14\%$** | **$90,48\%$** | **$J = 0,2096$** |
+| **Run 7** | Perceptron | $0,010$ | Tidak | $54,50\%$ | $55,98\%$ | $92,00\%$ | $22,55\%$ | $36,22\%$ | $282$ misclass |
+| **Run 8** | ADALINE | $0,010$ | Tidak | $44,69\%$ | $44,57\%$ | $0,00\%$ | $0,00\%$ | $0,00\%$ | **Loss Exploded (NaN)** |
+
+### Kesimpulan Temuan Eksperimen:
+
+1. **Best Performing Model:** Model **ADALINE Terstandardisasi ($\eta = 0.1$, Run 6)** menghasilkan performa tertinggi dengan **Akurasi Uji $89,13\%$**, **Recall $93,14\%$**, dan **F1-Score $90,48\%$**.
+2. **Keterpisahan Linier Data:** Dataset *Heart Failure* terbukti **tidak dapat dipisahkan secara linier sempurna (*non-linearly separable*)**, dicirikan oleh kurva Perceptron yang berosilasi pada $\sim 140-150$ misklasifikasi tanpa pernah menyentuh angka 0.
+3. **Invariansi Learning Rate Perceptron:** Pada inisialisasi bobot nol ($\mathbf{w}=\mathbf{0}$), variasi $\eta$ ($0.001, 0.01, 0.1$) pada Perceptron menghasilkan akurasi yang identik ($79,89\%$) karena $\eta$ hanya menskalakan besaran magnitudo bobot tanpa mengubah arah sudut bidang batas keputusan (*decision boundary*).
+4. **Pentingnya Standardisasi:** Tanpa standardisasi data (Run 8), model ADALINE mengalami **ledakan gradien (*gradient explosion*)** yang menyebabkan $J(\mathbf{w},b)$ menjadi `NaN` dan prediksi merosot ke kelas mayoritas tunggal.
+
+---
+
+## 📚 7. Referensi dan Sitasi Akademik
+
+1. **Rosenblatt, F. (1958).** The perceptron: A probabilistic model for information storage and organization in the brain. *Psychological Review*, 65(6), 386–408. https://doi.org/10.1037/h0042519
+2. **Widrow, B., & Hoff, M. E. (1960).** Adaptive switching circuits. *IRE WESCON Convention Record*, Part 4, 96–104. https://isl.stanford.edu/~widrow/papers/c1960adaptiveswitching.pdf
+3. **Raschka, S. (2015).** *Single-Layer Neural Networks and Gradient Descent*. MLxtend Documentation. https://rasbt.github.io/mlxtend/user_guide/classifier/Adaline/
+4. **Aggarwal, C. C. (2018).** *Neural Networks and Deep Learning: A Textbook*. Springer.
+5. **da Silva, I. N., Spatti, D. H., Flauzino, R. A., Liboni, L. H. B., & dos Reis Alves, S. F. (2017).** *Artificial Neural Networks: A Practical Course*. Springer.
+
+---
+
+## 🤖 8. Bantuan AI dan Protokol Verifikasi
+
+* **Alat Generatif yang Digunakan:** OpenAI ChatGPT / Claude / Gemini.
+* **Tujuan Penggunaan AI:**
+1. Membantu perancangan struktur skrip visualisasi Matplotlib dan tata letak tabel Markdown.
+2. Memverifikasi ketepatan formulasi matematika LaTeX untuk fungsi kerugian ADALINE dan aturan pembaruan bobot Delta Rule.
+
+
+* **Protokol Verifikasi Mandiri:** Seluruh algoritma inti `PerceptronNumPy` dan `AdalineNumPy`, eksekusi kode numerik, perhitungan manual dua sampel/batch, serta analisis bab pembahasan telah diuji, diverifikasi, dan divalidasi secara independen oleh seluruh anggota kelompok tanpa menyalin mentah hasil keluaran AI.
+
+---
+
+## 🤝 9. Rincian Kontribusi Anggota Kelompok
+
+* **[Nama Mahasiswa 1] (NIM: [NIM 1]):**
+* Memimpin perumusan masalah medis dan penetapan skema *supervised learning*.
+* Mengimplementasikan kelas `PerceptronNumPy` dan `AdalineNumPy` dari nol berbasis matriks NumPy.
+* Menyusun fungsi preprocessing data, pembagian *Stratified Train-Test Split*, dan pembentukan `dataset.csv`.
+
+
+* **[Nama Mahasiswa 2] (NIM: [NIM 2]):**
+* Menyusun dan memverifikasi perhitungan langkah pembaruan parameter secara manual untuk Perceptron (2 sampel) dan ADALINE (2 iterasi batch).
+* Mengelola eksekusi 8 konfigurasi eksperimen (*Runs 1–8*) dan pencatatan riwayat *loss/error*.
+* Melakukan analisis akademik mengenai fenomena invariansi laju pembelajaran dan *gradient explosion*.
+
+
+* **[Nama Mahasiswa 3] (NIM: [NIM 3]):**
+* Membuat skrip plot visualisasi kurva konvergensi *misclassifications* dan *loss J(w,b)* per epoch.
+* Menyusun berkas laporan utama PDF (`TB1_KelompokXX.pdf`) dan slide presentasi (`Presentasi_TB1.pdf`).
+* Memastikan kepatuhan seluruh item penilaian terhadap rubrik FTI UKDW dan memverifikasi aksesibilitas repositori publik.
+"""
+
+
+
+with open("README.md", "w", encoding="utf-8") as f:
+f.write(readme_content)
+
+print("Status: Berkas README.md berhasil dibuat dan diperbarui.")
+
+```
+
+```text?code_stdout&code_event_index=1
+Status: Berkas README.md berhasil dibuat dan diperbarui.
+
+
+```
+
+Berkas **`README.md`** telah berhasil dibuat di direktori utama repositori.
+
+Seluruh komponen mandatory—mulai dari identitas kelompok, struktur berkas, ketersediaan `dataset.csv` lokal, instruksi instalasi, tabel hasil 8 eksperimen, hingga rincian referensi dan kontribusi anggota—sudah tersusun rapi di dalamnya.
