@@ -1,0 +1,26 @@
+# TB1-JST-KelompokXX: Analisis dan Implementasi Klasifikasi Risiko Penyakit Jantung (Heart Failure) Menggunakan Perceptron dan ADALINE
+
+---
+
+## 📌 1. Judul Kasus & Identitas Kelompok
+* **Judul Tugas Besar:** Klasifikasi Risiko Penyakit Jantung (Heart Failure) Menggunakan Perceptron dan ADALINE Berbasis Python/NumPy.
+* **Mata Kuliah:** Jaringan Syaraf Tiruan (IT6053) — 3 SKS
+* **Institusi:** Fakultas Teknologi Informasi, Universitas Duta Wacana (UKDW)
+
+### 👥 Identitas Anggota Kelompok
+1. **[Nama Mahasiswa 1]** — NIM: `[NIM 1]` (Kontribusi: Formulasi Masalah, Preprocessing, Implementasi Perceptron & ADALINE)
+2. **[Nama Mahasiswa 2]** — NIM: `[NIM 2]` (Kontribusi: Perhitungan Manual, Eksekusi 8 Runs, Analisis Convergence)
+3. **[Nama Mahasiswa 3]** — NIM: `[NIM 3]` (Kontribusi: Visualisasi Evaluasi, Penyusunan Laporan PDF & Slide Presentasi)
+
+---
+
+## 📁 2. Struktur Repository & Tautan Berkas
+
+```text
+TB1-JST-KelompokXX/
+├── README.md                 # Dokumentasi utama repository
+├── requirements.txt          # Daftar dependensi Python
+├── dataset.csv               # Heart Failure Prediction Dataset (918 sampel)
+├── TB1_KelompokXX.ipynb      # Notebook eksperimen NumPy LENGKAP end-to-end
+├── TB1_KelompokXX.pdf        # Laporan resmi Tugas Besar 1 (PDF)
+└── Presentasi_TB1.pdf        # Slide presentasi (PDF)
